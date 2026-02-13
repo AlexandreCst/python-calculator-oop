@@ -1,17 +1,20 @@
 # Python calculator OOP
 
 ## Description
-A simple CLI calculator in Python based on POO principles. The script ask two 
-numbers and an operator among [+, -, *, /] to make some calculations.
+A simple CLI calculator in Python based on POO principles. The script ask 
+numbers and an operator among [+, -, *, /, **, %, !, sqrt] to make some 
+scientific calculations.
 
 ## Features
 - Class calculator with methods (addition, subtraction, multiplication, 
 division, show history and clear history)
+- Subclass scientific with methods (power, factorial, modulo and square root)
 - Function_helper module with functions to check if the user want to quit the
-script (check_quit()) and 2 functions to check the validity of the user inputs 
-(get_valid_number() and get_valid_operation())
-- Main script with basic arithmetic operations (addition, subtraction, 
-multiplication, division)
+script (check_quit()), 2 functions to check the validity of the user inputs 
+(get_valid_number() and get_valid_operation()) and one function to handle
+different error that occurs like ZeroDivisionError or ValueError (handle_error())
+- Main script with basic and scientific arithmetic operations (addition, 
+subtraction, multiplication, division)
 - Input validation
 - Calculation history (viewable on demand)
 - Exit anytime with 'q' command
