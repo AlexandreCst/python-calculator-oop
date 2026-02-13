@@ -160,22 +160,3 @@ class ScientificCalculator(Calculator):
         except ValueError:
             return Exception("Oops.. factorial of negative number impossible!")
         return result
-
-
-        
-
-
-    
-
-
-calc = ScientificCalculator()
-calc.power(2, 2)
-calc.modulo(54, 5)
-print(calc.modulo(8, 0))
-calc.square_root(81)
-print(calc.square_root(-2))
-calc.factorial_number(6)
-print(calc.factorial_number(3.5))
-print(calc.factorial_number(-4))
-print("\n")
-calc.show_history()
