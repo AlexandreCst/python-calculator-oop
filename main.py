@@ -1,61 +1,56 @@
+"""
+Script that give to the user the possibility of make basic operations untill it
+decide to quit. He has the possibility to display his history of each operation
+done.
+"""
+
 from calculator import Calculator
+from functions_helper import check_quit, get_valid_number, get_valid_operation
 
-def check_quit(user_input):
-    if user_input.lower().strip() in ['q', 'quit']:
-        exit()
-    else:
-        return user_input
-
-def get_valid_number(prompt_message):
-    while True:
-        user_input = input(prompt_message)
-        check_quit(user_input)
-        try:
-            user_prompt = float(user_input)
-            break
-        except (ValueError, TypeError):
-            print("Sorry the value isn't valid.. Please enter a number.")
-            continue
-    return user_prompt
-
-def get_valid_operation(prompt_message):
-    while True:
-        operation = input(prompt_message)
-        check_quit(operation)
-        if operation not in ["+", "-", "*", "/"]:
-            print("Please, enter a valid operation..")
-            continue
-        else:
-            break
-    return operation
 
 if __name__ == "__main__":
     print("Give me two numbers, and I'll applicate operations on them")
     print("Enter 'q' at anytime to quit.\n")
-    calculation = Calculator()
+
+    calculation = Calculator() # Create a calculator
     while True:
+        # Check if the inputs is valid for numbers (int or float)
         first_number = get_valid_number("Enter a number: ")
         second_number = get_valid_number("Enter a second number: ")
+
+        # Check if the operation is valid (+, -, *, /)
         operation = get_valid_operation(
-            "What operation (+, -, *, /) do you want to do? "
+            "\nWhat operation (+, -, *, /) do you want to do? "
             )
         
+        # Make the appropriate operation demand by the user
         if operation == "+":
-            print(calculation.addition(first_number, second_number))
+            add = calculation.addition(first_number, second_number)
+            print(f"\nResult: {add:.2f}")
         
         elif operation == "-":
-            print(calculation.subtraction(first_number, second_number))
+            sub = calculation.subtraction(first_number, second_number)
+            print(f"\nResult: {sub:.2f}")
         
         elif operation == "*":
-            print(calculation.multiplication(first_number, second_number))
+            mul = calculation.multiplication(first_number, second_number)
+            print(f"\nResult: {mul:.2f}")
 
         else:
-            print(calculation.division(first_number, second_number))
+            div = calculation.division(first_number, second_number)
+            if isinstance(div, object): # If it's an error (division by zero)
+                print(f"\n{div}") # Display error message
+            else: # If it's a number (division valid)
+                print(f"\nResult: {div:.2f}")
         
 
-        user_history = input("Do you want to show your history? (y/n)")
+        # Ask if the user wishes to display its history
+        user_history = input("\nDo you want to show your history? (y/n)")
+
+        # Check if the user want to quit
         user_quit = check_quit(user_history)
 
+        # Display the history
         if user_history.lower().strip() in ['y', 'yes']:
             calculation.show_history()
 
