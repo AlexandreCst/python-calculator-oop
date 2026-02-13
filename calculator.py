@@ -45,7 +45,7 @@ class Calculator:
         self.history.append(f"{a:.2f} * {b:.2f} = {a * b:.2f}")
         return a * b
     
-    def division(self, a: float, b: float) -> float:
+    def division(self, a: float, b: float):
         """
         Divsion of 2 terms a by b
         
@@ -57,10 +57,10 @@ class Calculator:
         """
         try:
             result = a / b
+            self.history.append(f"{a:.2f} / {b:.2f} = {a / b:.2f}")
         except ZeroDivisionError:
-            raise Exception("Oops.. Division by 0!")
-        
-        self.history.append(f"{a:.2f} / {b:.2f} = {a / b:.2f}")
+            return Exception("Oops.. Division by 0!")
+            
         return result
     
     def show_history(self):
