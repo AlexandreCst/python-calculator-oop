@@ -45,9 +45,22 @@ def get_valid_operation(prompt_message: str) -> str:
     while True:
         operation = input(prompt_message)
         check_quit(operation) # Check if the user want to quit
-        if operation not in ["+", "-", "*", "/"]:
+        if operation not in ["+", "-", "*", "/", "**", "%", "sqrt", "!"]:
             print("Please, enter a valid operation..")
             continue
         else:
             break
     return operation
+
+def handle_error(operation):
+    """
+    Function to handle error that can be occur in operations like modulo (%), 
+    factorial (!), division (/), square root (sqrt).
+    
+    operation: Operation that user want to apply
+    type operation: float, int or Exception object
+    """
+    if isinstance(operation, Exception): 
+        print(f"\n{operation}") # Display error message
+    else: # If it's valid
+        print(f"\nResult: {operation:.2f}")
