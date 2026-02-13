@@ -4,44 +4,64 @@ decide to quit. He has the possibility to display his history of each operation
 done.
 """
 
-from calculator import Calculator
+from calculator import ScientificCalculator
 from functions_helper import check_quit, get_valid_number, get_valid_operation
+from functions_helper import handle_error
 
 
 if __name__ == "__main__":
-    print("Give me two numbers, and I'll applicate operations on them")
-    print("Enter 'q' at anytime to quit.\n")
+    print("===================================================================")
+    print("====================== SCIENTIFIC CALCULATOR ======================")
+    print("===================================================================")
+    print("\nEnter 'q' at anytime to quit.\n")
 
-    calculation = Calculator() # Create a calculator
+    calculation = ScientificCalculator() # Create a calculator
     while True:
         # Check if the inputs is valid for numbers (int or float)
         first_number = get_valid_number("Enter a number: ")
-        second_number = get_valid_number("Enter a second number: ")
 
         # Check if the operation is valid (+, -, *, /)
         operation = get_valid_operation(
-            "\nWhat operation (+, -, *, /) do you want to do? "
+            "\nWhat operation (+, -, *, /, **, %, sqrt, !) do you want to do? "
             )
         
-        # Make the appropriate operation demand by the user
-        if operation == "+":
-            add = calculation.addition(first_number, second_number)
-            print(f"\nResult: {add:.2f}")
+        # Make operations which only used to one number
+        if operation in ["sqrt", "!"]:
+            if operation == "sqrt":
+                square_root = calculation.square_root(first_number)
+                handle_error(square_root)
+            else:
+                factor = calculation.factorial_number(int(first_number))
+                handle_error(factor)      
         
-        elif operation == "-":
-            sub = calculation.subtraction(first_number, second_number)
-            print(f"\nResult: {sub:.2f}")
-        
-        elif operation == "*":
-            mul = calculation.multiplication(first_number, second_number)
-            print(f"\nResult: {mul:.2f}")
-
         else:
-            div = calculation.division(first_number, second_number)
-            if isinstance(div, object): # If it's an error (division by zero)
-                print(f"\n{div}") # Display error message
-            else: # If it's a number (division valid)
-                print(f"\nResult: {div:.2f}")
+            # Make operations which need 2 numbers
+            second_number = get_valid_number("Enter a second number: ")
+
+            # Make the appropriate operation demand by the user
+            if operation == "+":
+                add = calculation.addition(first_number, second_number)
+                print(f"\nResult: {add:.2f}")
+            
+            elif operation == "-":
+                sub = calculation.subtraction(first_number, second_number)
+                print(f"\nResult: {sub:.2f}")
+            
+            elif operation == "*":
+                mul = calculation.multiplication(first_number, second_number)
+                print(f"\nResult: {mul:.2f}")
+
+            elif operation == "**":
+                power = calculation.power(first_number, second_number)
+                print(f"\nResult: {power:.2f}")
+            
+            elif operation == "%":
+                modulo = calculation.modulo(first_number, second_number)
+                handle_error(modulo)
+
+            else:
+                div = calculation.division(first_number, second_number)
+                handle_error(div)
         
 
         # Ask if the user wishes to display its history
