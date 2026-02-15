@@ -18,11 +18,12 @@ if __name__ == "__main__":
     calculation = ScientificCalculator() # Create a calculator
     while True:
         # Check if the inputs is valid for numbers (int or float)
-        first_number = get_valid_number("Enter a number: ")
+        first_number = get_valid_number("Enter a number: ", calculation)
 
-        # Check if the operation is valid (+, -, *, /)
+        # Check if the operation is valid (+, -, *, /, **, %, sqrt, !)
         operation = get_valid_operation(
-            "\nWhat operation (+, -, *, /, **, %, sqrt, !) do you want to do? "
+            "\nWhat operation (+, -, *, /, **, %, sqrt, !) do you want to do? ",
+            calculation
             )
         
         # Make operations which only used to one number
@@ -36,7 +37,10 @@ if __name__ == "__main__":
         
         else:
             # Make operations which need 2 numbers
-            second_number = get_valid_number("Enter a second number: ")
+            second_number = get_valid_number(
+                "Enter a second number: ",
+                calculation
+                )
 
             # Make the appropriate operation demand by the user
             if operation == "+":
@@ -68,7 +72,7 @@ if __name__ == "__main__":
         user_history = input("\nDo you want to show your history? (y/n)")
 
         # Check if the user want to quit
-        user_quit = check_quit(user_history)
+        user_quit = check_quit(user_history, calculation)
 
         # Display the history
         if user_history.lower().strip() in ['y', 'yes']:

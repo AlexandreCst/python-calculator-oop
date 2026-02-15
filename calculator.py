@@ -172,11 +172,3 @@ class ScientificCalculator(Calculator):
         except ValueError:
             return Exception("Oops.. factorial of negative number impossible!")
         return result
-    
-
-
-calc = Calculator()
-calc.addition(5, 3)
-calc.subtraction(10, 4)
-calc.multiplication(2, 7)
-print(calc.save_history("test", "txt"))
