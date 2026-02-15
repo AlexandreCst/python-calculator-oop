@@ -1,6 +1,7 @@
 """This module contain the calculator class with basic operations like addition,
  subtraction, mulitplication and division."""
 
+from pathlib import Path
 from math import sqrt, factorial
 
 class Calculator:
@@ -82,6 +83,17 @@ class Calculator:
         """
         self.history = []
 
+    def save_history(self, filename, format="txt"):
+        """Save the calculation history in a file"""
+        full_filename = f"{filename}.{format}"
+        path = Path(full_filename)
+        try:
+            path.write_text('\n'.join(self.history), encoding='utf-8')
+        except Exception:
+            return None
+        return full_filename
+
+
 
 class ScientificCalculator(Calculator):
     """
@@ -160,3 +172,11 @@ class ScientificCalculator(Calculator):
         except ValueError:
             return Exception("Oops.. factorial of negative number impossible!")
         return result
+    
+
+
+calc = Calculator()
+calc.addition(5, 3)
+calc.subtraction(10, 4)
+calc.multiplication(2, 7)
+print(calc.save_history("test", "txt"))
