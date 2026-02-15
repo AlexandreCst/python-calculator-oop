@@ -84,7 +84,9 @@ class Calculator:
         self.history = []
 
     def save_history(self, filename, format="txt"):
-        """Save the calculation history in a file"""
+        """
+        Save the calculation history in a file
+        """
         full_filename = f"{filename}.{format}"
         path = Path(full_filename)
         try:
@@ -92,6 +94,23 @@ class Calculator:
         except Exception:
             return None
         return full_filename
+    
+    def load_history(self, filename, format="txt"):
+        """
+        Give the possibility to load the history directly from a file
+        """
+        path = Path(f"{filename}.{format}")
+
+        try: # Check if the file exist and add lines in history
+            history_contents = path.read_text()
+            lines = history_contents.splitlines()
+            for line in lines:
+                self.history.append(line)
+        
+        except FileNotFoundError: # If the file doesn't exist or not found
+            return None 
+        
+        return len(lines) # Number of lines added in history
 
 
 
@@ -172,3 +191,16 @@ class ScientificCalculator(Calculator):
         except ValueError:
             return Exception("Oops.. factorial of negative number impossible!")
         return result
+    
+
+
+# Test save/load history
+calc1 = ScientificCalculator()
+calc1.addition(5, 3)
+calc1.subtraction(10, 4)
+calc1.save_history("test")
+
+calc2 = ScientificCalculator()
+loaded = calc2.load_history("test")
+print(f"Loaded {loaded} lines")
+calc2.show_history()
