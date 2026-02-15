@@ -15,6 +15,7 @@ script (check_quit()), 2 functions to check the validity of the user inputs
 different error that occurs like ZeroDivisionError or ValueError (handle_error())
 - Main script with basic and scientific arithmetic operations (addition, 
 subtraction, multiplication, division)
+- Save history in txt file and possibility to load history from a txt file 
 - Input validation
 - Calculation history (viewable on demand)
 - Exit anytime with 'q' command
