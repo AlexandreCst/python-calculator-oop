@@ -1,4 +1,16 @@
-def check_quit(user_input: str) -> str:
+from calculator import Calculator
+
+def quit_and_save(calculation: Calculator):
+    """Check if history is not empty and save the history inside a file"""
+    if calculation.history == []:
+        exit()
+    else:
+        filename = calculation.save_history("history", format='txt')
+        print(f"\nYour history is available inside the {filename} file.")
+        exit()
+
+
+def check_quit(user_input: str, calculation: Calculator):
     """
     Check if the user want to quit the calculator
     
@@ -8,11 +20,11 @@ def check_quit(user_input: str) -> str:
     rtype: str
     """
     if user_input.lower().strip() in ['q', 'quit']:
-        exit()
+        quit_and_save(calculation)
     else:
         return user_input
 
-def get_valid_number(prompt_message: str) -> float:
+def get_valid_number(prompt_message: str, calculation: Calculator) -> float:
     """
     Check if the user input is a valid number and return this value converting
     in float
@@ -24,7 +36,7 @@ def get_valid_number(prompt_message: str) -> float:
     """
     while True:
         user_input = input(prompt_message)
-        check_quit(user_input) # Check if the user want to quit
+        check_quit(user_input, calculation) # Check if the user want to quit
         try:
             user_prompt = float(user_input)
             break
@@ -33,7 +45,7 @@ def get_valid_number(prompt_message: str) -> float:
             continue
     return user_prompt
 
-def get_valid_operation(prompt_message: str) -> str:
+def get_valid_operation(prompt_message: str, calculation: Calculator) -> str:
     """
     Check if the user input is a valid operation and return it
     
@@ -44,7 +56,7 @@ def get_valid_operation(prompt_message: str) -> str:
     """
     while True:
         operation = input(prompt_message)
-        check_quit(operation) # Check if the user want to quit
+        check_quit(operation, calculation) # Check if the user want to quit
         if operation not in ["+", "-", "*", "/", "**", "%", "sqrt", "!"]:
             print("Please, enter a valid operation..")
             continue
